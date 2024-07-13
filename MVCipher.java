@@ -11,6 +11,21 @@ public class MVCipher
     PrintWriter pw;
     Scanner input;
     String filenametoread;
+    String fileText;
+    String word;
+    String checker;
+    char newlet;
+    String encryptedString;
+    public MVCipher()
+    {
+        pw = null; 
+        input = null;
+        filenametoread = "";
+        fileText = "";
+        word = "";
+        checker = "";
+        encryptedString = "";
+    }
     public static void main(String[] args) {
         MVCipher mvc = new MVCipher();
         mvc.run();
@@ -22,7 +37,7 @@ public class MVCipher
         System.out.println( "Welcome to the MV Cipher machine!");
         System.out.println();
         System.out.print("Please input a word to use as key (letters only): ");
-        String word = scan.next();
+        word = scan.next();
         while(word.trim().length()< 3)
         {
             System.out.print("ERROR: Key must be all letters and at least 3 characters long\n");
@@ -46,17 +61,32 @@ public class MVCipher
     {
         Scanner scan = new Scanner(System.in);
         System.out.print("Name of file to encrypt -> ");
-        String filenametoread = scan.next().trim();
+        filenametoread = scan.next().trim();
         System.out.print("Name of output file -> ");
         String filenametowrite = scan.next().trim();
         System.out.println("\n");
-        String filecontents;
+
         tryCatchIt();
         while(input.hasNextLine())
         {
-            System.out.println(input.nextLine());
+            fileText += input.nextLine();
         }
         input.close();
+        for(int i = 0; i <= fileText.length()/word.length(); i++)
+        {
+            checker += word;
+        }
+        System.out.println(checker);
+        for(int i = 0; i < fileText.length(); i++)
+        {
+            if(fileText.charAt(i) != ' ' && fileText.charAt(i) != '1' && fileText.charAt(i) != '2' && fileText.charAt(i) != '3' && fileText.charAt(i) != '4' && fileText.charAt(i) != '5' && fileText.charAt(i) != '6' && fileText.charAt(i) != '7' && fileText.charAt(i) != '8' && fileText.charAt(i) != '9' && fileText.charAt(i) != '0')
+            {
+                char file = fileText.charAt(i);
+                char other = checker.charAt(0);
+                checker = checker.substring(1, checker.length());
+            }
+        }
+
     }
     public void decrypt()
     {
