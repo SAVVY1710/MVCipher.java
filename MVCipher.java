@@ -16,6 +16,7 @@ public class MVCipher
     String checker;
     char newlet;
     String encryptedString;
+    String filenametowrite;
     public MVCipher()
     {
         pw = null; 
@@ -25,6 +26,7 @@ public class MVCipher
         word = "";
         checker = "";
         encryptedString = "";
+        filenametowrite = "";
     }
     public static void main(String[] args) {
         MVCipher mvc = new MVCipher();
@@ -63,7 +65,7 @@ public class MVCipher
         System.out.print("Name of file to encrypt -> ");
         filenametoread = scan.next().trim();
         System.out.print("Name of output file -> ");
-        String filenametowrite = scan.next().trim();
+        filenametowrite = scan.next().trim();
         System.out.println("\n");
 
         tryCatchIt();
@@ -84,8 +86,37 @@ public class MVCipher
                 char file = fileText.charAt(i);
                 char other = checker.charAt(0);
                 checker = checker.substring(1, checker.length());
+                System.out.println(other + "");
+
+                if((int)file >= 65 && (int)file <= 90 )
+                {
+                    System.out.println((int)file + (int)other-64);
+                    if((int)file + (int)other-64 > 90)
+                    {
+                        newlet = (char)(64 + ((int)file + (int)other-64)-90);
+                        encryptedString += newlet + "";
+                    }
+                    else
+                    {
+                        newlet = (char)((int)file + (int)other-64);
+                        encryptedString += newlet + "";
+                    }
+                }
+
+                else if((int)file >= 97 && (int) file <= 122)
+                {
+                    
+                }
+                System.out.println(newlet);
             }
+            if(fileText.charAt(i) == ' ' && fileText.charAt(i) == '1' && fileText.charAt(i) == '2' && fileText.charAt(i) == '3' && fileText.charAt(i) == '4' && fileText.charAt(i) == '5' && fileText.charAt(i) == '6' && fileText.charAt(i) == '7' && fileText.charAt(i) == '8' && fileText.charAt(i) == '9' && fileText.charAt(i) == '0')
+            {
+                encryptedString += fileText.charAt(i);
+            }
+            
         }
+        System.out.println(encryptedString);
+        append(encryptedString);
 
     }
     public void decrypt()
@@ -116,7 +147,7 @@ public class MVCipher
     public void append(String wd)
     {
         pw = null;
-        File outFile = new File("dictionary.txt");
+        File outFile = new File(filenametowrite);
         try
         {
             pw = new PrintWriter( new FileWriter(outFile, true) );
