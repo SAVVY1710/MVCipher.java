@@ -93,13 +93,12 @@ public class MVCipher
                     && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') 
                 {
                     char file = fileText.charAt(i);
-                    char other = checker.charAt(0);
-                    System.out.println(file);
+                    char other = checker.toLowerCase().charAt(0);
+
                     //statement for uppercase letters
                     if ((int) file >= 65 && (int) file <= 90)
                     {
                         other = checker.toUpperCase().charAt(0);
-                        System.out.println((int) file + (int) other - 64);
                         if ((int) file + (int) other - 64 > 90) 
                         {
                             if(file > other)
@@ -175,13 +174,57 @@ public class MVCipher
         while (input.hasNextLine()) 
         {
             fileText += input.nextLine();
+            System.out.println(input.nextLine());
         }
         input.close();
         for (int i = 0; i <= fileText.length() / word.length(); i++) 
         {
             checker += word;
         }
-        
+        for (int i = 0; i < fileText.length(); i++) 
+        {
+            if (fileText.charAt(i) != ' ' && fileText.charAt(i) != '1' && fileText.charAt(i) != '2'
+                && fileText.charAt(i) != '3' && fileText.charAt(i) != '4' && fileText.charAt(i) != '5'
+                && fileText.charAt(i) != '6' && fileText.charAt(i) != '7' && fileText.charAt(i) != '8'
+                && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') 
+            {
+                char file = fileText.charAt(i);
+                char other = checker.toLowerCase().charAt(0);
+
+                if ((int) file >= 65 && (int) file <= 90)
+                {
+                    other = checker.toUpperCase().charAt(0);
+                    if ((int) file - (int) other - 64 < 65) 
+                    {
+                        if(file > other)
+                        {
+                            newlet = (char)(90 - (file - 64 - (other-64)));
+                        }
+                        else if(other > file)
+                        {
+                            newlet = (char)(90 - (other - 64-(file-64)));
+                        }
+                        else if(other == file)
+                        {
+                            newlet = (char)(90 - (file - 64-(other-64)));
+                        }
+                            
+                        encryptedString += newlet + "";
+                    }
+                    else 
+                    {
+                        newlet = (char)((int) file - (int) other);
+                        encryptedString += newlet + "";
+                    }
+
+                }
+
+            }
+
+        }
+            
+
+    System.out.println(encryptedString); 
     }
 
     // Method used to read a file
@@ -190,9 +233,12 @@ public class MVCipher
         String inFileName = "dictionary.txt";
         // value = "";
         input = null;
-        try {
+        try 
+        {
             input = new Scanner(inFile);
-        } catch (FileNotFoundException e) {
+        } 
+        catch (FileNotFoundException e) 
+        {
             System.err.println("Cannot find " + inFileName + " file.");
             System.exit(1);
         }
@@ -202,13 +248,17 @@ public class MVCipher
     public void append(String wd) {
         pw = null;
         File outFile = new File(filenametowrite);
-        try {
+        try 
+        {
             pw = new PrintWriter(new FileWriter(outFile, false));
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             System.err.println("Cannot append to " + " dictionary.txt");
             System.exit(1);
         }
         pw.println(wd);
         pw.close();
     }
+    
 }
