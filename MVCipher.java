@@ -7,7 +7,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 //Class where everything happens
-public class MVCipher {
+public class MVCipher 
+{
     // field variables
     PrintWriter pw;
     Scanner input;
@@ -20,7 +21,8 @@ public class MVCipher {
     String filenametowrite;
 
     // Constructor where i initialize field variables
-    public MVCipher() {
+    public MVCipher() 
+    {
         pw = null;
         input = null;
         filenametoread = "";
@@ -32,13 +34,15 @@ public class MVCipher {
     }
 
     // in the main I create an instance of the class and run the run() method
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         MVCipher mvc = new MVCipher();
         mvc.run();
     }
 
     // method that was called by main and where everything happens
-    public void run() {
+    public void run() 
+    {
         Scanner scan = new Scanner(System.in);
         System.out.println("\n\n");
         System.out.println("Welcome to the MV Cipher machine!");
@@ -62,7 +66,8 @@ public class MVCipher {
     }
 
     // Method that is called if you choose to encrypt a file
-    public void encrypt() {
+    public void encrypt() 
+    {
         Scanner scan = new Scanner(System.in);
         System.out.print("Name of file to encrypt -> ");
         filenametoread = scan.next().trim();
@@ -71,38 +76,59 @@ public class MVCipher {
         System.out.println("\n");
 
         tryCatchIt();
-        while (input.hasNextLine()) {
+        while (input.hasNextLine()) 
+        {
             fileText += input.nextLine();
         }
         input.close();
-        for (int i = 0; i <= fileText.length() / word.length(); i++) {
+        for (int i = 0; i <= fileText.length() / word.length(); i++) 
+        {
             checker += word;
         }
-        for (int i = 0; i < fileText.length(); i++) {
+        for (int i = 0; i < fileText.length(); i++) 
+        {
             if (fileText.charAt(i) != ' ' && fileText.charAt(i) != '1' && fileText.charAt(i) != '2'
                     && fileText.charAt(i) != '3' && fileText.charAt(i) != '4' && fileText.charAt(i) != '5'
                     && fileText.charAt(i) != '6' && fileText.charAt(i) != '7' && fileText.charAt(i) != '8'
-                    && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') {
-                char file = fileText.charAt(i);
-                char other = checker.charAt(0);
-                checker = checker.substring(1, checker.length());
+                    && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') 
+                {
+                    char file = fileText.charAt(i);
+                    char other = checker.charAt(0);
+                    System.out.println(file);
+                    if ((int) file >= 65 && (int) file <= 90)
+                    {
+                        other = checker.toUpperCase().charAt(0);
+                        System.out.println((int) file + (int) other - 64);
+                        if ((int) file + (int) other - 64 > 90) 
+                        {
+                            if(file > other)
+                            {
+                                newlet = (char) (64 + ((int)file - 64)-(90-(int)other));
+                            }
+                            else if(other > file)
+                            {
+                                newlet = (char) (64 + ((int)other - 64)-(90-(int)file));
+                            }
+                            else if(other == file)
+                            {
+                                newlet = (char) (64 + ((int)other - 64)-(90-(int)file));
+                            }
+                            
+                            encryptedString += newlet + "";
+                        } 
+                        else 
+                        {
+                            newlet = (char) ((int) file + (int) other - 64);
+                            encryptedString += newlet + "";
+                        }
+                        checker = checker.substring(1, checker.length());
+                    }
 
-                if ((int) file >= 65 && (int) file <= 90) {
-                    other = checker.toUpperCase().charAt(0);
-                    System.out.println((int) file + (int) other - 64);
-                    if ((int) file + (int) other - 64 > 90) {
-                        newlet = (char) (64 + ((int) file + (int) other - 64) - 90);
-                        encryptedString += newlet + "";
-                    } else {
-                        newlet = (char) ((int) file + (int) other - 64);
-                        encryptedString += newlet + "";
+                    else if ((int) file >= 97 && (int) file <= 122) 
+                    {
+                        
                     }
                 }
-
-                else if ((int) file >= 97 && (int) file <= 122) {
-
-                }
-            }
             /*
              * else if(fileText.charAt(i) == ' ' || fileText.charAt(i) == '1' &&
              * fileText.charAt(i) == '2' || fileText.charAt(i) == '3' || fileText.charAt(i)
@@ -113,7 +139,8 @@ public class MVCipher {
              * encryptedString += fileText.charAt(i);
              * }
              */
-            else {
+            else 
+            {
                 encryptedString += fileText.charAt(i);
             }
 
@@ -122,9 +149,9 @@ public class MVCipher {
         append(encryptedString);
 
     }
-
     // method that is run if you choose to decrypt a file
-    public void decrypt() {
+    public void decrypt() 
+    {
         Scanner scan = new Scanner(System.in);
         System.out.print("Name of file to encrypt -> ");
         filenametoread = scan.next().trim();
