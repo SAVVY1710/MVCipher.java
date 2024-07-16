@@ -95,6 +95,7 @@ public class MVCipher
                     char file = fileText.charAt(i);
                     char other = checker.charAt(0);
                     System.out.println(file);
+                    //statement for uppercase letters
                     if ((int) file >= 65 && (int) file <= 90)
                     {
                         other = checker.toUpperCase().charAt(0);
@@ -123,22 +124,34 @@ public class MVCipher
                         }
                         checker = checker.substring(1, checker.length());
                     }
-
+                    //statement for uppercase letters
                     else if ((int) file >= 97 && (int) file <= 122) 
                     {
-                        
+                        if ((int) file + (int) other - 96 > 122) 
+                        {
+                            if(file > other)
+                            {
+                                newlet = (char) (96 + ((int)file - 96)-(122-(int)other));
+                            }
+                            else if(other > file)
+                            {
+                                newlet = (char) (96 + ((int)other - 96)-(122-(int)file));
+                            }
+                            else if(other == file)
+                            {
+                                newlet = (char) (96 + ((int)other - 96)-(122-(int)file));
+                            }
+                            
+                            encryptedString += newlet + "";
+                        } 
+                        else 
+                        {
+                            newlet = (char) ((int) file + (int) other - 96);
+                            encryptedString += newlet + "";
+                        }
+                        checker = checker.substring(1, checker.length());
                     }
                 }
-            /*
-             * else if(fileText.charAt(i) == ' ' || fileText.charAt(i) == '1' &&
-             * fileText.charAt(i) == '2' || fileText.charAt(i) == '3' || fileText.charAt(i)
-             * == '4' || fileText.charAt(i) == '5' || fileText.charAt(i) == '6' ||
-             * fileText.charAt(i) == '7' || fileText.charAt(i) == '8' || fileText.charAt(i)
-             * == '9' || fileText.charAt(i) == '0')
-             * {
-             * encryptedString += fileText.charAt(i);
-             * }
-             */
             else 
             {
                 encryptedString += fileText.charAt(i);
@@ -158,6 +171,17 @@ public class MVCipher
         System.out.print("Name of output file -> ");
         String filenametowrite = scan.next().trim();
         System.out.println("\n");
+        tryCatchIt();
+        while (input.hasNextLine()) 
+        {
+            fileText += input.nextLine();
+        }
+        input.close();
+        for (int i = 0; i <= fileText.length() / word.length(); i++) 
+        {
+            checker += word;
+        }
+        
     }
 
     // Method used to read a file
