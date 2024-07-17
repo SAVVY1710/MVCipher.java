@@ -150,6 +150,7 @@ public class MVCipher
                                 newlet = (char) (96 + ((int)other - 96)-(122-(int)file));
                             }
                             
+                            
                             encryptedString += newlet + "";
                         } 
                         else 
@@ -158,6 +159,11 @@ public class MVCipher
                             encryptedString += newlet + "";
                         }
                         checker = checker.substring(1, checker.length());
+                    }
+                    else
+                    {
+                        newlet = fileText.charAt(i);
+                        encryptedString += newlet + "";
                     }
                 }
             else 
@@ -181,21 +187,25 @@ public class MVCipher
         tryCatchIt();
         while (input.hasNextLine()) 
         {
-            fileText += input.nextLine();
-            System.out.println(input.nextLine());
+            fileText = input.nextLine();
+           
             decryptionlogic();
         }
         input.close();
         
     }
+
     public void decryptionlogic()
     {
+        encryptedString = "";
+        checker = "";
         for (int i = 0; i <= fileText.length() / word.length(); i++) 
         {
             checker += word;
         }
         for (int i = 0; i < fileText.length(); i++) 
         {
+
             if (fileText.charAt(i) != ' ' && fileText.charAt(i) != '1' && fileText.charAt(i) != '2'
                 && fileText.charAt(i) != '3' && fileText.charAt(i) != '4' && fileText.charAt(i) != '5'
                 && fileText.charAt(i) != '6' && fileText.charAt(i) != '7' && fileText.charAt(i) != '8'
@@ -203,36 +213,50 @@ public class MVCipher
             {
                 char file = fileText.charAt(i);
                 char other = checker.toLowerCase().charAt(0);
-
                 if ((int) file >= 65 && (int) file <= 90)
                 {
                     other = checker.toUpperCase().charAt(0);
-                    if ((int) file - (int) other - 64 < 65) 
+                    System.out.println((((int) other - 64)));
+                    if ((int) file - ((int) other - 64) < 65) 
                     {
+                        System.out.println("yo");
                         if(file > other)
                         {
-                            newlet = (char)(90 - (file - 64 - (other-64)));
+                            newlet = (char)(91 - ((file - 64) - (other - 64)));
                         }
                         else if(other > file)
                         {
-                            newlet = (char)(90 - (other - 64-(file-64)));
+                            newlet = (char)(91 - ((other - 64) - (file - 64)));
                         }
                         else if(other == file)
                         {
-                            newlet = (char)(90 - (file - 64-(other-64)));
+                            newlet = (char)(91 - ((other - 64) - (file - 64)));
                         }
                             
                         encryptedString += newlet + "";
                     }
                     else 
                     {
-                        newlet = (char)((int) file - (int) other);
+                        System.out.println("hi");
+                        newlet = (char)((int) file - ((int) other - 64));
                         encryptedString += newlet + "";
                     }
+                    checker = checker.substring(1, checker.length());
 
+                }
+                else 
+                {
+                    newlet = fileText.charAt(i);
+                    encryptedString += newlet + "";
                 }
 
             }
+            else 
+            {
+                newlet = fileText.charAt(i);
+                encryptedString += newlet + "";
+            }
+
 
         }
     System.out.println(encryptedString); 
@@ -254,7 +278,6 @@ public class MVCipher
             System.exit(1);
         }
     }
-
     // Method used to write in a file
     public void write(String wd) {
         pw = null;
