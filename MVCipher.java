@@ -74,7 +74,7 @@ public class MVCipher
         System.out.print("Name of output file -> ");
         filenametowrite = scan.next().trim();
         System.out.println("\n");
-
+        write("");
         tryCatchIt();
         while (input.hasNextLine()) 
         {
@@ -172,7 +172,6 @@ public class MVCipher
             }
 
         }
-        System.out.println(encryptedString);
         append(encryptedString);
     }
     // method that is run if you choose to decrypt a file
@@ -185,10 +184,10 @@ public class MVCipher
         String filenametowrite = scan.next().trim();
         System.out.println("\n");
         tryCatchIt();
+        write("");
         while (input.hasNextLine()) 
         {
             fileText = input.nextLine();
-           
             decryptionlogic();
         }
         input.close();
@@ -216,29 +215,46 @@ public class MVCipher
                 if ((int) file >= 65 && (int) file <= 90)
                 {
                     other = checker.toUpperCase().charAt(0);
-                    System.out.println((((int) other - 64)));
                     if ((int) file - ((int) other - 64) < 65) 
                     {
-                        System.out.println("yo");
                         if(file > other)
                         {
-                            newlet = (char)(91 - ((file - 64) - (other - 64)));
+                            newlet = (char)(90 - ((file - 64) - (other - 64)));
                         }
                         else if(other > file)
                         {
-                            newlet = (char)(91 - ((other - 64) - (file - 64)));
+                            newlet = (char)(90 - ((other - 64) - (file - 64)));
                         }
                         else if(other == file)
                         {
-                            newlet = (char)(91 - ((other - 64) - (file - 64)));
+                            newlet = (char)(90 - ((other - 64) - (file - 64)));
+                        }
+                            
+                        encryptedString += newlet + "";
+                    }
+                    else if ((int) file >= 97 && (int) file <= 122)
+                {
+                    other = checker.toUpperCase().charAt(0);
+                    if ((int) file - ((int) other - 64) < 65) 
+                    {
+                        if(file > other)
+                        {
+                            newlet = (char)(122 - ((file - 96) - (other - 96)));
+                        }
+                        else if(other > file)
+                        {
+                            newlet = (char)(122 - ((other - 96) - (file - 96)));
+                        }
+                        else if(other == file)
+                        {
+                            newlet = (char)(122 - ((other - 96) - (file - 96)));
                         }
                             
                         encryptedString += newlet + "";
                     }
                     else 
                     {
-                        System.out.println("hi");
-                        newlet = (char)((int) file - ((int) other - 64));
+                        newlet = (char)((int) file - ((int) other - 96));
                         encryptedString += newlet + "";
                     }
                     checker = checker.substring(1, checker.length());
@@ -256,11 +272,10 @@ public class MVCipher
                 newlet = fileText.charAt(i);
                 encryptedString += newlet + "";
             }
-
-
+            append(encryptedString);
         }
-    System.out.println(encryptedString); 
     }
+}
 
     // Method used to read a file
     public void tryCatchIt() {
@@ -291,7 +306,7 @@ public class MVCipher
             System.err.println("Cannot append to " + " dictionary.txt");
             System.exit(1);
         }
-        pw.println(wd);
+        pw.print(wd);
         pw.close();
     }
 
