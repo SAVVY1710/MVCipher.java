@@ -78,9 +78,18 @@ public class MVCipher
         tryCatchIt();
         while (input.hasNextLine()) 
         {
-            fileText += input.nextLine();
+            fileText = input.nextLine();
+            System.out.println(fileText);
+            encryptlogic();
         }
         input.close();
+        
+
+    }
+    public void encryptlogic()
+    {
+        checker = "";
+        encryptedString = "";
         for (int i = 0; i <= fileText.length() / word.length(); i++) 
         {
             checker += word;
@@ -159,13 +168,12 @@ public class MVCipher
         }
         System.out.println(encryptedString);
         append(encryptedString);
-
     }
     // method that is run if you choose to decrypt a file
     public void decrypt() 
     {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Name of file to encrypt -> ");
+        System.out.print("Name of file to decrypt -> ");
         filenametoread = scan.next().trim();
         System.out.print("Name of output file -> ");
         String filenametowrite = scan.next().trim();
@@ -175,56 +183,14 @@ public class MVCipher
         {
             fileText += input.nextLine();
             System.out.println(input.nextLine());
+            decryptionlogic();
         }
         input.close();
-        for (int i = 0; i <= fileText.length() / word.length(); i++) 
-        {
-            checker += word;
-        }
-        for (int i = 0; i < fileText.length(); i++) 
-        {
-            if (fileText.charAt(i) != ' ' && fileText.charAt(i) != '1' && fileText.charAt(i) != '2'
-                && fileText.charAt(i) != '3' && fileText.charAt(i) != '4' && fileText.charAt(i) != '5'
-                && fileText.charAt(i) != '6' && fileText.charAt(i) != '7' && fileText.charAt(i) != '8'
-                && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') 
-            {
-                char file = fileText.charAt(i);
-                char other = checker.toLowerCase().charAt(0);
-
-                if ((int) file >= 65 && (int) file <= 90)
-                {
-                    other = checker.toUpperCase().charAt(0);
-                    if ((int) file - (int) other - 64 < 65) 
-                    {
-                        if(file > other)
-                        {
-                            newlet = (char)(90 - (file - 64 - (other-64)));
-                        }
-                        else if(other > file)
-                        {
-                            newlet = (char)(90 - (other - 64-(file-64)));
-                        }
-                        else if(other == file)
-                        {
-                            newlet = (char)(90 - (file - 64-(other-64)));
-                        }
-                            
-                        encryptedString += newlet + "";
-                    }
-                    else 
-                    {
-                        newlet = (char)((int) file - (int) other);
-                        encryptedString += newlet + "";
-                    }
-
-                }
-
-            }
-
-        }
-            
-
-    System.out.println(encryptedString); 
+        
+    }
+    public void decryptionlogic()
+    {
+        
     }
 
     // Method used to read a file
@@ -245,12 +211,29 @@ public class MVCipher
     }
 
     // Method used to write in a file
-    public void append(String wd) {
+    public void write(String wd) {
         pw = null;
         File outFile = new File(filenametowrite);
         try 
         {
             pw = new PrintWriter(new FileWriter(outFile, false));
+        } 
+        catch (IOException e) 
+        {
+            System.err.println("Cannot append to " + " dictionary.txt");
+            System.exit(1);
+        }
+        pw.println(wd);
+        pw.close();
+    }
+
+    // Method used to write in a file
+    public void append(String wd) {
+        pw = null;
+        File outFile = new File(filenametowrite);
+        try 
+        {
+            pw = new PrintWriter(new FileWriter(outFile, true));
         } 
         catch (IOException e) 
         {

@@ -1,1 +1,54 @@
 A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+A T T A C K  A T  0 4 : 0 0  H O U R S 
+for (int i = 0; i <= fileText.length() / word.length(); i++) 
+        {
+            checker += word;
+        }
+        for (int i = 0; i < fileText.length(); i++) 
+        {
+            if (fileText.charAt(i) != ' ' && fileText.charAt(i) != '1' && fileText.charAt(i) != '2'
+                && fileText.charAt(i) != '3' && fileText.charAt(i) != '4' && fileText.charAt(i) != '5'
+                && fileText.charAt(i) != '6' && fileText.charAt(i) != '7' && fileText.charAt(i) != '8'
+                && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') 
+            {
+                char file = fileText.charAt(i);
+                char other = checker.toLowerCase().charAt(0);
+
+                if ((int) file >= 65 && (int) file <= 90)
+                {
+                    other = checker.toUpperCase().charAt(0);
+                    if ((int) file - (int) other - 64 < 65) 
+                    {
+                        if(file > other)
+                        {
+                            newlet = (char)(90 - (file - 64 - (other-64)));
+                        }
+                        else if(other > file)
+                        {
+                            newlet = (char)(90 - (other - 64-(file-64)));
+                        }
+                        else if(other == file)
+                        {
+                            newlet = (char)(90 - (file - 64-(other-64)));
+                        }
+                            
+                        encryptedString += newlet + "";
+                    }
+                    else 
+                    {
+                        newlet = (char)((int) file - (int) other);
+                        encryptedString += newlet + "";
+                    }
+
+                }
+
+            }
+
+        }
+    System.out.println(encryptedString); 
