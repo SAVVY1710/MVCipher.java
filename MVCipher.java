@@ -1,3 +1,11 @@
+/*
+ * Creating a cipher using Ceasar Cipher. 
+ * 
+ * @author: Sai Avula
+ * @since: 7/18/2024
+ */
+
+
 //imports for file/IO
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +28,7 @@ public class MVCipher
     String encryptedString;
     String filenametowrite;
 
-    // Constructor where i initialize field variables
+    // Constructor where I initialize field variables
     public MVCipher() 
     {
         pw = null;
@@ -79,7 +87,6 @@ public class MVCipher
         while (input.hasNextLine()) 
         {
             fileText = input.nextLine();
-            System.out.println(fileText);
             encryptlogic();
         }
         input.close();
@@ -150,7 +157,6 @@ public class MVCipher
                                 newlet = (char) (96 + ((int)other - 96)-(122-(int)file));
                             }
                             
-                            
                             encryptedString += newlet + "";
                         } 
                         else 
@@ -166,10 +172,10 @@ public class MVCipher
                         encryptedString += newlet + "";
                     }
                 }
-            else 
-            {
-                encryptedString += fileText.charAt(i);
-            }
+                else 
+                {
+                    encryptedString += fileText.charAt(i) + "";
+                }
 
         }
         append(encryptedString);
@@ -181,8 +187,7 @@ public class MVCipher
         System.out.print("Name of file to decrypt -> ");
         filenametoread = scan.next().trim();
         System.out.print("Name of output file -> ");
-        String filenametowrite = scan.next().trim();
-        System.out.println("\n");
+        filenametowrite = scan.next().trim();
         tryCatchIt();
         write("");
         while (input.hasNextLine()) 
@@ -191,7 +196,7 @@ public class MVCipher
             decryptionlogic();
         }
         input.close();
-        
+
     }
 
     public void decryptionlogic()
@@ -211,7 +216,7 @@ public class MVCipher
                 && fileText.charAt(i) != '9' && fileText.charAt(i) != '0') 
             {
                 char file = fileText.charAt(i);
-                char other = checker.toLowerCase().charAt(0);
+                char other = checker.toUpperCase().charAt(0);
                 if ((int) file >= 65 && (int) file <= 90)
                 {
                     other = checker.toUpperCase().charAt(0);
@@ -229,13 +234,21 @@ public class MVCipher
                         {
                             newlet = (char)(90 - ((other - 64) - (file - 64)));
                         }
-                            
+    
                         encryptedString += newlet + "";
                     }
-                    else if ((int) file >= 97 && (int) file <= 122)
+                    else 
+                    {
+                        System.out.println("why");
+                        newlet = (char)((int) file - ((int) other - 64));
+                        encryptedString += newlet + "";
+                    }
+                    checker = checker.substring(1, checker.length());
+                }
+                else if ((int) file >= 97 && (int) file <= 122)
                 {
-                    other = checker.toUpperCase().charAt(0);
-                    if ((int) file - ((int) other - 64) < 65) 
+                    other = checker.toLowerCase().charAt(0);
+                    if ((int) file - ((int) other - 96) < 97) 
                     {
                         if(file > other)
                         {
@@ -249,7 +262,7 @@ public class MVCipher
                         {
                             newlet = (char)(122 - ((other - 96) - (file - 96)));
                         }
-                            
+                        
                         encryptedString += newlet + "";
                     }
                     else 
@@ -258,27 +271,25 @@ public class MVCipher
                         encryptedString += newlet + "";
                     }
                     checker = checker.substring(1, checker.length());
-
                 }
                 else 
                 {
                     newlet = fileText.charAt(i);
                     encryptedString += newlet + "";
                 }
-
             }
             else 
             {
                 newlet = fileText.charAt(i);
                 encryptedString += newlet + "";
             }
-            append(encryptedString);
         }
+        append(encryptedString);
     }
-}
 
     // Method used to read a file
-    public void tryCatchIt() {
+    public void tryCatchIt() 
+    {
         File inFile = new File(filenametoread);
         String inFileName = "dictionary.txt";
         // value = "";

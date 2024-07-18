@@ -1,8 +1,60 @@
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
-A Z Z A C K  Z Z  0 4 : 0 0  H O U Z Z 
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+A T T A C K  A T  0 4 : 0 0  H O U R S
+ // Method used to read a file
+    public void tryCatchIt() 
+    {
+        File inFile = new File(filenametoread);
+        String inFileName = "dictionary.txt";
+        // value = "";
+        input = null;
+        try 
+        {
+            input = new Scanner(inFile);
+        } 
+        catch (FileNotFoundException e) 
+        {
+            System.err.println("Cannot find " + inFileName + " file.");
+            System.exit(1);
+        }
+    }
+    // Method used to write in a file
+    public void write(String wd) {
+        pw = null;
+        File outFile = new File(filenametowrite);
+        try 
+        {
+            pw = new PrintWriter(new FileWriter(outFile, false));
+        } 
+        catch (IOException e) 
+        {
+            System.err.println("Cannot append to " + " dictionary.txt");
+            System.exit(1);
+        }
+        pw.print(wd);
+        pw.close();
+    }
+
+    // Method used to write in a file
+    public void append(String wd) {
+        pw = null;
+        File outFile = new File(filenametowrite);
+        try 
+        {
+            pw = new PrintWriter(new FileWriter(outFile, true));
+        } 
+        catch (IOException e) 
+        {
+            System.err.println("Cannot append to " + " dictionary.txt");
+            System.exit(1);
+        }
+        pw.println(wd);
+        pw.close();
+    }
+    
+}
